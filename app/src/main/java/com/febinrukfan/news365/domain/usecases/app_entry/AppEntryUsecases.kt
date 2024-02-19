@@ -1,4 +1,4 @@
-package com.febinrukfan.news365.domain.usecases
+package com.febinrukfan.news365.domain.usecases.app_entry
 
 data class AppEntryUseCases (
 

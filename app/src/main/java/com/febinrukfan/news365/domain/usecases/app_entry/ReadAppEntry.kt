@@ -1,4 +1,4 @@
-package com.febinrukfan.news365.domain.usecases
+package com.febinrukfan.news365.domain.usecases.app_entry
 
 import com.febinrukfan.news365.domain.manager.LocalUserManager
 import kotlinx.coroutines.flow.Flow
