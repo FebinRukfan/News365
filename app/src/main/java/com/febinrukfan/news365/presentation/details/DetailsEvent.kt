@@ -1,5 +1,7 @@
 package com.febinrukfan.news365.presentation.details
 
+import com.febinrukfan.news365.domain.model.Article
+
 
 /**
  * Created by Febin Rukfan on 2024-02-19.
@@ -7,6 +9,11 @@ package com.febinrukfan.news365.presentation.details
  */
 sealed class DetailsEvent {
 
-    object SaveArticle : DetailsEvent()
+
+
+    data class UpsertDeleteArticle(val article: Article) : DetailsEvent()
+
+
+    object RemoveSideEffect : DetailsEvent()
 
 }

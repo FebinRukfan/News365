@@ -27,7 +27,6 @@ import com.febinrukfan.news365.domain.model.Article
 import com.febinrukfan.news365.presentation.Dimen.MediumPadding1
 import com.febinrukfan.news365.presentation.common.ArticlesList
 import com.febinrukfan.news365.presentation.common.SearchBar
-import com.febinrukfan.news365.presentation.navgraph.Route
 
 
 /**
@@ -99,9 +98,7 @@ fun HomeScreen(
         ArticlesList(
             modifier = Modifier.padding(horizontal = MediumPadding1),
             articles = articles,
-            onClick = {
-                    navigateToDetails
-            }
+            onClick = navigateToDetails
         )
     }
 }

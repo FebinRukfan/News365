@@ -24,8 +24,34 @@ import com.febinrukfan.news365.presentation.home.components.ArticleCard
 @Composable
 fun ArticlesList(
     modifier: Modifier = Modifier,
-    articles: LazyPagingItems<Article>,
+    articles: List<Article>,
     onClick:(Article) -> Unit
+) {
+
+
+
+        LazyColumn(
+            modifier = modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.spacedBy(MediumPadding1),
+            contentPadding = PaddingValues(all = ExtraSmallPadding2)
+        ) {
+            items(
+                count = articles.size,
+            ) {
+                articles[it]?.let { article ->
+                    ArticleCard(article = article, onClick = { onClick(article) })
+                }
+            }
+        }
+
+}
+
+
+@Composable
+fun ArticlesList(
+    modifier: Modifier = Modifier,
+    articles: LazyPagingItems<Article>,
+    onClick: (Article) -> Unit
 ) {
 
     val handlePagingResult = handlePagingResult(articles)
@@ -41,12 +67,13 @@ fun ArticlesList(
                 count = articles.itemCount,
             ) {
                 articles[it]?.let { article ->
-                    ArticleCard(article = article, onClick = {onClick(article)})
+                    ArticleCard(article = article, onClick = { onClick(article) })
                 }
             }
         }
     }
 }
+
 
 @Composable
 fun handlePagingResult(articles: LazyPagingItems<Article>): Boolean {

@@ -2,6 +2,7 @@ package com.febinrukfan.news365.presentation.details
 
 import android.content.Intent
 import android.net.Uri
+import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -13,6 +14,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
@@ -26,23 +28,37 @@ import com.febinrukfan.news365.domain.model.Article
 import com.febinrukfan.news365.domain.model.Source
 import com.febinrukfan.news365.presentation.Dimen.ArticleImageHeight
 import com.febinrukfan.news365.presentation.Dimen.MediumPadding1
+import com.febinrukfan.news365.presentation.details.DetailsEvent
 import com.febinrukfan.news365.presentation.details.components.DetailsTopBar
 import com.febinrukfan.news365.ui.theme.News365Theme
-
-
-/**
- * Created by Febin Rukfan on 2024-02-19.
- * febinrukfan@gmail.com
- */
+import com.febinrukfan.news365.utils.UIComponent
 
 @Composable
 fun DetailsScreen(
     article: Article,
     event: (DetailsEvent) -> Unit,
+    sideEffect: UIComponent?,
     navigateUp: () -> Unit
 ) {
     val context = LocalContext.current
-    Column(modifier = Modifier.fillMaxSize().statusBarsPadding()) {
+
+    LaunchedEffect(key1 = sideEffect) {
+        sideEffect?.let {
+            when(sideEffect){
+                is UIComponent.Toast ->{
+                    Toast.makeText(context, sideEffect.message, Toast.LENGTH_SHORT).show()
+                    event(DetailsEvent.RemoveSideEffect)
+                }
+                else -> Unit
+            }
+        }
+    }
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .statusBarsPadding()
+    ) {
         DetailsTopBar(
             onBrowsingClick = {
                 Intent(Intent.ACTION_VIEW).also {
@@ -62,7 +78,7 @@ fun DetailsScreen(
                 }
             },
             onBookMarkClick = {
-                event(DetailsEvent.SaveArticle)
+                event(DetailsEvent.UpsertDeleteArticle(article))
             },
             onBackClick = navigateUp
         )
@@ -123,7 +139,8 @@ fun DetailsScreenPreview() {
                 url = "https://consent.google.com/ml?continue=https://news.google.com/rss/articles/CBMiaWh0dHBzOi8vY3J5cHRvc2F1cnVzLnRlY2gvY29pbmJhc2Utc2F5cy1hcHBsZS1ibG9ja2VkLWl0cy1sYXN0LWFwcC1yZWxlYXNlLW9uLW5mdHMtaW4td2FsbGV0LXJldXRlcnMtY29tL9IBAA?oc%3D5&gl=FR&hl=en-US&cm=2&pc=n&src=1",
                 urlToImage = "https://media.wired.com/photos/6495d5e893ba5cd8bbdc95af/191:100/w_1280,c_limit/The-EU-Rules-Phone-Batteries-Must-Be-Replaceable-Gear-2BE6PRN.jpg"
             ),
-            event = {}
+            event = {},
+            sideEffect = null
         ) {
 
         }
