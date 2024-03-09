@@ -14,12 +14,10 @@ import com.febinrukfan.news365.presentation.onboarding.OnBoardingViewModel
 @Composable
 fun NavGraph(
     startDestination: String
-){
-
+) {
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = startDestination ) {
-
+    NavHost(navController = navController, startDestination = startDestination) {
         navigation(
             route = Route.AppStartNavigation.route,
             startDestination = Route.OnBoardingScreen.route
@@ -34,10 +32,9 @@ fun NavGraph(
             route = Route.NewsNavigation.route,
             startDestination = Route.NewsNavigatorScreen.route
         ) {
-            composable(route = Route.NewsNavigatorScreen.route) {
+            composable(route = Route.NewsNavigatorScreen.route){
                 NewsNavigator()
             }
         }
-
     }
 }

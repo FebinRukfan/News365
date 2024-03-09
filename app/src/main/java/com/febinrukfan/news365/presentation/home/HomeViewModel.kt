@@ -4,7 +4,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
-import com.febinrukfan.news365.domain.usecases.news.NewsUseCases
+import com.febinrukfan.news365.domain.usecases.news.GetNews
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -16,14 +16,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val newsUseCases: NewsUseCases
-
-) : ViewModel() {
+    private val getNewsUseCase: GetNews
+): ViewModel() {
 
     var state = mutableStateOf(HomeState())
         private set
 
-    val news = newsUseCases.getNews(
+    val news = getNewsUseCase(
         sources = listOf("bbc-news","abc-news","al-jazeera-english")
     ).cachedIn(viewModelScope)
 

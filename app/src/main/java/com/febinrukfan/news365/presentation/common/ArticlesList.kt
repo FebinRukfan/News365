@@ -67,7 +67,9 @@ fun ArticlesList(
                 count = articles.itemCount,
             ) {
                 articles[it]?.let { article ->
-                    ArticleCard(article = article, onClick = { onClick(article) })
+                    ArticleCard(article = article, onClick = {
+                        onClick(article)
+                    })
                 }
             }
         }

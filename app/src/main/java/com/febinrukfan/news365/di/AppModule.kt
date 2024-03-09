@@ -5,21 +5,7 @@ import androidx.room.Room
 import com.febinrukfan.news365.data.local.NewsDao
 import com.febinrukfan.news365.data.local.NewsDatabase
 import com.febinrukfan.news365.data.local.NewsTypeConvertor
-import com.febinrukfan.news365.data.manager.LocalUserManagerImpl
 import com.febinrukfan.news365.data.remote.NewsApi
-import com.febinrukfan.news365.data.repository.NewsRepositoryImpl
-import com.febinrukfan.news365.domain.manager.LocalUserManager
-import com.febinrukfan.news365.domain.repository.NewsRepository
-import com.febinrukfan.news365.domain.usecases.app_entry.AppEntryUseCases
-import com.febinrukfan.news365.domain.usecases.app_entry.ReadAppEntry
-import com.febinrukfan.news365.domain.usecases.app_entry.SaveAppEntry
-import com.febinrukfan.news365.domain.usecases.news.DeleteArticle
-import com.febinrukfan.news365.domain.usecases.news.GetArticle
-import com.febinrukfan.news365.domain.usecases.news.GetArticles
-import com.febinrukfan.news365.domain.usecases.news.GetNews
-import com.febinrukfan.news365.domain.usecases.news.NewsUseCases
-import com.febinrukfan.news365.domain.usecases.news.SearchNews
-import com.febinrukfan.news365.domain.usecases.news.UpsertArticle
 import com.febinrukfan.news365.utils.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -32,23 +18,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-
-    @Provides
-    @Singleton
-    fun provideLocalUserManger(
-        application: Application
-    ): LocalUserManager = LocalUserManagerImpl(context = application)
-
-    @Provides
-    @Singleton
-    fun provideAppEntryUseCases(
-        localUserManger: LocalUserManager
-    ): AppEntryUseCases = AppEntryUseCases(
-        readAppEntry = ReadAppEntry(localUserManger),
-        saveAppEntry = SaveAppEntry(localUserManger)
-    )
-
-
     @Provides
     @Singleton
     fun provideApiInstance(): NewsApi {
@@ -58,30 +27,6 @@ object AppModule {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(NewsApi::class.java)
-    }
-
-    @Provides
-    @Singleton
-    fun provideNewsRepository(
-        newsApi: NewsApi
-    ): NewsRepository {
-        return NewsRepositoryImpl(newsApi)
-    }
-
-    @Provides
-    @Singleton
-    fun provideNewsUseCases(
-        newsRepository: NewsRepository,
-        newsDao: NewsDao
-    ): NewsUseCases {
-        return NewsUseCases(
-            getNews = GetNews(newsRepository),
-            searchNews = SearchNews(newsRepository),
-            upsertArticle = UpsertArticle(newsDao),
-            deleteArticle = DeleteArticle(newsDao),
-            getArticles = GetArticles(newsDao),
-            getArticle = GetArticle(newsDao)
-        )
     }
 
     @Provides

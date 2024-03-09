@@ -50,7 +50,7 @@ fun ArticleCard(
 
     val context = LocalContext.current
 
-    Row (modifier = modifier.clickable { onClick }) {
+    Row (modifier = modifier.clickable { onClick?.invoke() }) {
 
         AsyncImage(
             modifier = Modifier
@@ -60,8 +60,11 @@ fun ArticleCard(
             contentDescription = null,
             contentScale = ContentScale.Crop)
 
-        Column(verticalArrangement = Arrangement.SpaceAround, modifier = Modifier.padding(horizontal = ExtraSmallPadding).height(
-            ArticleCardSize)) {
+        Column(
+            verticalArrangement = Arrangement.SpaceAround,
+            modifier = Modifier
+                .padding(horizontal = ExtraSmallPadding)
+                .height(ArticleCardSize)) {
 
         Text(
             text = article.title,

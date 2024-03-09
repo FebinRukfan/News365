@@ -68,7 +68,7 @@ fun HomeScreen(
                 .padding(horizontal = MediumPadding1)
         )
 
-        Spacer(modifier = androidx.compose.ui.Modifier.height(MediumPadding1))
+        Spacer(modifier = Modifier.height(MediumPadding1))
 
         SearchBar(
             modifier = Modifier
@@ -78,12 +78,10 @@ fun HomeScreen(
             readOnly = true,
             onValueChange = {},
             onSearch = {},
-            onClick = {
-                navigateToSearch
-            }
+            onClick = navigateToSearch
         )
 
-        Spacer(modifier = androidx.compose.ui.Modifier.height(MediumPadding1))
+        Spacer(modifier = Modifier.height(MediumPadding1))
 
         Text(
             text = titles, modifier = Modifier
@@ -93,12 +91,13 @@ fun HomeScreen(
             color = colorResource(id = R.color.placeholder)
         )
 
-        Spacer(modifier = androidx.compose.ui.Modifier.height(MediumPadding1))
+        Spacer(modifier = Modifier.height(MediumPadding1))
 
         ArticlesList(
             modifier = Modifier.padding(horizontal = MediumPadding1),
             articles = articles,
             onClick = navigateToDetails
+
         )
     }
 }

@@ -4,7 +4,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.febinrukfan.news365.domain.usecases.app_entry.AppEntryUseCases
+import com.febinrukfan.news365.domain.usecases.app_entry.ReadAppEntry
 import com.febinrukfan.news365.presentation.navgraph.Route
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -20,9 +20,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainActivityViewModel @Inject constructor(
-    private val appEntryUseCases: AppEntryUseCases
+    private val readAppEntry: ReadAppEntry
+): ViewModel() {
 
-) : ViewModel() {
     private val _splashCondition = mutableStateOf(true)
     val splashCondition: State<Boolean> = _splashCondition
 
@@ -30,13 +30,13 @@ class MainActivityViewModel @Inject constructor(
     val startDestination: State<String> = _startDestination
 
     init {
-        appEntryUseCases.readAppEntry().onEach { shouldStartFromHomeScreen ->
+        readAppEntry().onEach { shouldStartFromHomeScreen ->
             if(shouldStartFromHomeScreen){
                 _startDestination.value = Route.NewsNavigation.route
             }else{
                 _startDestination.value = Route.AppStartNavigation.route
             }
-            delay(200) //Without this delay, the onBoarding screen will show for a momentum.
+            delay(300) //Without this delay, the onBoarding screen will show for a momentum.
             _splashCondition.value = false
         }.launchIn(viewModelScope)
     }
