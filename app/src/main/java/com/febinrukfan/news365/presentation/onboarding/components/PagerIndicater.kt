@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import com.febinrukfan.news365.presentation.Dimen.IndicatorSize
-import com.febinrukfan.news365.ui.theme.BlueGray
+import com.febinrukfan.news365.ui.theme.OrangeGray
 
 @Composable
 fun PagerIndicator(
@@ -20,7 +20,7 @@ fun PagerIndicator(
     pagesSize: Int,
     selectedPage: Int,
     selectedColor: Color = MaterialTheme.colorScheme.primary,
-    unselectedColor: Color = BlueGray,
+    unselectedColor: Color = OrangeGray,
 ){
     Row(modifier = modifier, horizontalArrangement = Arrangement.SpaceBetween) {
         repeat(times = pagesSize) { page ->
