@@ -17,3 +17,6 @@ Android application built by Jetpack Compose and the latest Android libraries
 :-------------------------:|:-------------------------:|:-------------------------:
 ![](https://github.com/FebinRukfan/News365/blob/main/screenshots/web1.png)|![](https://github.com/FebinRukfan/News365/blob/main/screenshots/bookmarksaved.png)|![](https://github.com/FebinRukfan/News365/blob/main/screenshots/bookmark1.png)
 
+
+
+Inspired by https://github.com/lofcoding
