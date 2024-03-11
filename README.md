@@ -19,4 +19,3 @@ Android application built by Jetpack Compose and the latest Android libraries
 
 
 
-Inspired by https://github.com/lofcoding
